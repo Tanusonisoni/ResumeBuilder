@@ -5,14 +5,14 @@ import { setPersonal } from "../../redux/slices/resumeSlice";
 const PersonalForm = () => {
   const dispatch = useDispatch();
 
-//   const [form, setForm] = useState({
-//     name: "",
-//     email: "",
-//     phone: "",
-//     location: "",
-//     linkedin: "",
-//     summary: "",
-//   });
+  const [form, setForm] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    location: "",
+    linkedin: "",
+    summary: "",
+  });
 
   const handleSave = () => {
     dispatch(setPersonal(form));
