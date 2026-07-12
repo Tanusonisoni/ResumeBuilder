@@ -62,12 +62,12 @@ function SkillsForm() {
 
   const handleNext = () => {
     handleSave();
-    navigate("/experiance");
+    navigate("/builder/project");
   };
 
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-4 bg-white rounded-2xl shadow-md p-6 w-full border border-gray-100 overflow-y-auto max-h-[85vh]">
       <div>
         <label className="text-sm font-medium text-gray-600">Programming Languages</label>
         <input

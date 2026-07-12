@@ -23,7 +23,7 @@ const PersonalForm = () => {
 
   const handleNext = () => {
     handleSave();
-    navigate("/education");
+    navigate("/builder/education");
   };
 
   const handleChange = ({ target }) => {
@@ -31,7 +31,7 @@ const PersonalForm = () => {
   };
 
   return (
-    <div className="bg-white rounded-2xl shadow-md p-6 w-full max-w-xl border border-gray-100">
+    <div className="bg-white rounded-2xl shadow-md p-6 w-full border border-gray-100 overflow-y-auto max-h-[85vh]">
       
       {/* Header */}
       <div className="mb-6">

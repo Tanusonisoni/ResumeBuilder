@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setProjects, updateProject } from "../../redux/slices/resumeSlice";
-import { useNavigate } from "react-router";
+import { useNavigate } from "react-router-dom";
 
 function ProjectForm() {
 
@@ -32,12 +32,11 @@ function ProjectForm() {
   };
 
   const handleNext = () => {
-    // handleSave();
-    navigate("/skills");
+    navigate("/builder/experience");
   };
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-4 bg-white rounded-2xl shadow-md p-6 w-full border border-gray-100 overflow-y-auto max-h-[85vh]">
       {forms.map((form, index) => (
         <div key={index} className="border rounded-xl p-4 bg-white shadow-sm space-y-4">
           <div>
@@ -68,7 +67,7 @@ function ProjectForm() {
       <button
         type="button"
         onClick={addProjectBox}
-        className="w-full bg-green-600 hover:bg-green-700 text-white py-2 rounded-lg font-medium transition shadow-sm"
+        className="w-full bg-green-400 hover:bg-green-700 text-white py-2 rounded-lg font-medium transition shadow-sm"
       >
         + Add Another Project
       </button>

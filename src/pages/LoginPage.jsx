@@ -2,12 +2,15 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 
 function LoginPage() {
+  const navigate = useNavigate();
 
-    const navigate=useNavigate();
-
-    const handleNext = () => {
-    // handleSave();
+  const handleNext = () => {
     navigate("/signup");
+  };
+
+  const handleLogin = (e) => {
+    e.preventDefault();
+    navigate("/builder/personal");
   };
 
   return (
@@ -24,7 +27,7 @@ function LoginPage() {
         </div>
 
         {/* Form */}
-        <form className="space-y-5">
+        <form className="space-y-5" onSubmit={handleLogin}>
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">
               Email Address

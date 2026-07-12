@@ -33,11 +33,11 @@ function EducationForm() {
   };
 
   const handleNext = () => {
-    navigate("/project");
+    navigate("/builder/skills");
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 bg-white rounded-2xl shadow-md p-6 w-full border border-gray-100 overflow-y-auto max-h-[85vh]">
       {/* Graduation */}
       <div className="border p-4 rounded-lg">
         <h2 className="text-lg font-semibold mb-4">🎓 Graduation</h2>
