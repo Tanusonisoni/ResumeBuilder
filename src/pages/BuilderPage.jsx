@@ -1,23 +1,30 @@
 import EducationForm from "../components/ResumeForm/EducationForm";
 import ExperianceForm from "../components/ResumeForm/ExperienceForm";
 import PersonalForm from "../components/ResumeForm/PersonalForm";
-import ExperianceSection from "../components/ResumePreview/ExperienceSection";
-import ResumePreview from "../components/ResumePreview/ResumePreview";
-import EducationSection from "../components/ResumePreview/EducationSection"
 import ProjectForm from "../components/ResumeForm/ProjectForm";
-import ProjectsSection from "../components/ResumePreview/ProjectsSection";
 import SkillsForm from "../components/ResumeForm/SkillsForm";
-import SkillsSection from "../components/ResumePreview/SkillsSection";
+import RegisterPage from "../pages/RegisterPage"
+import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
+
+
 
 export default function BuilderPage() {
-  return (
-    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 p-6">
-      <div className="space-y-6">
-        <SkillsForm />
-      </div>
+  const navigate = useNavigate();
+  const location = useLocation();
 
-      <div className="space-y-6">
-        <SkillsSection />
+  return (
+    <div className="p-6">
+     
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <Routes>
+          <Route path="/" element={<PersonalForm />} />
+          <Route path="/education" element={<EducationForm />} />
+          <Route path="/project" element={<ProjectForm />} />
+          <Route path="/skills" element={<SkillsForm />} />
+          <Route path="/experiance" element={<ExperianceForm />} />
+          <Route path="*" element={<PersonalForm />} />
+          <Route path="/signup" element={<RegisterPage/>}/>
+        </Routes>
       </div>
     </div>
   );

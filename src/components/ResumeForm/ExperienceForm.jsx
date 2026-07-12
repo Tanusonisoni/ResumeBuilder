@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { addExperience } from "../../redux/slices/resumeSlice";
+import { useNavigate } from "react-router-dom";
 
 const PersonalForm = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const [form, setForm] = useState({
     Companyname:"",
@@ -17,6 +19,11 @@ const PersonalForm = () => {
 
   const handleSave = () => {
     dispatch(addExperience(form));
+  };
+
+  const handleNext = () => {
+    handleSave();
+    
   };
 
   const handleChange = ({ target }) => {
@@ -122,7 +129,7 @@ const PersonalForm = () => {
       {/* Button */}
       <div className="mt-6">
         <button
-          onClick={handleSave}
+          onClick={handleNext}
           className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg font-medium transition shadow-sm"
         >
           Save Information

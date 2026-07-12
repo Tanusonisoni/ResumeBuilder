@@ -1,9 +1,11 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 import { addEducation } from "../../redux/slices/resumeSlice";
+import { useNavigate } from "react-router-dom";
 
 function EducationForm() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleChange = ({ target }) => {
     const fieldMap = {
@@ -28,6 +30,10 @@ function EducationForm() {
         },
       })
     );
+  };
+
+  const handleNext = () => {
+    navigate("/project");
   };
 
   return (
@@ -109,6 +115,13 @@ function EducationForm() {
           className="w-full border p-2 rounded"
         />
       </div>
+
+      <button
+        onClick={handleNext}
+        className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg font-medium transition shadow-sm"
+      >
+        Next: Projects
+      </button>
     </div>
   );
 }

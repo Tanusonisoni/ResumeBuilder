@@ -147,6 +147,13 @@ const resumeSlice = createSlice({
       state.projects = action.payload;
     },
 
+    updateProject: (state, action) => {
+      const { index, project } = action.payload;
+      if (state.projects[index]) {
+        state.projects[index] = project;
+      }
+    },
+
     // SKILLS
     setSkills: (state, action) => {
       state.skills = action.payload;
@@ -161,6 +168,7 @@ export const {
   addExperience,
   addProject,
   setProjects,
+  updateProject,
   setExperience,
   setSkills,
 } = resumeSlice.actions;

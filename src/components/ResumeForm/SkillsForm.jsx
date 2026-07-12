@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { setSkills } from "../../redux/slices/resumeSlice";
 
 function SkillsForm() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { skills } = useSelector((state) => state.resume);
 
   const [form, setForm] = useState({
@@ -16,42 +18,31 @@ function SkillsForm() {
   });
 
   useEffect(() => {
-    setForm({
+    setForm((prev) => ({
+      ...prev,
       programming: skills?.programming?.join(", ") || "",
       frontend: skills?.frontend?.join(", ") || "",
       backend: skills?.backend?.join(", ") || "",
       databases: skills?.databases?.join(", ") || "",
       tools: skills?.tools?.join(", ") || "",
       softSkills: skills?.softSkills?.join(", ") || "",
-    });
+    }));
   }, [skills]);
 
   const syncSkillsToStore = (nextForm) => {
+    const parseList = (value) =>
+      String(value || "")
+        .split(",")
+        .map((item) => item.trim())
+        .filter(Boolean);
+
     const payload = {
-      programming: nextForm.programming
-        .split(",")
-        .map((item) => item.trim())
-        .filter(Boolean),
-      frontend: nextForm.frontend
-        .split(",")
-        .map((item) => item.trim())
-        .filter(Boolean),
-      backend: nextForm.backend
-        .split(",")
-        .map((item) => item.trim())
-        .filter(Boolean),
-      databases: nextForm.databases
-        .split(",")
-        .map((item) => item.trim())
-        .filter(Boolean),
-      tools: nextForm.tools
-        .split(",")
-        .map((item) => item.trim())
-        .filter(Boolean),
-      softSkills: nextForm.softSkills
-        .split(",")
-        .map((item) => item.trim())
-        .filter(Boolean),
+      programming: parseList(nextForm.programming),
+      frontend: parseList(nextForm.frontend),
+      backend: parseList(nextForm.backend),
+      databases: parseList(nextForm.databases),
+      tools: parseList(nextForm.tools),
+      softSkills: parseList(nextForm.softSkills),
     };
 
     dispatch(setSkills(payload));
@@ -68,6 +59,12 @@ function SkillsForm() {
   const handleSave = () => {
     syncSkillsToStore(form);
   };
+
+  const handleNext = () => {
+    handleSave();
+    navigate("/experiance");
+  };
+
 
   return (
     <div className="space-y-4">
@@ -138,7 +135,7 @@ function SkillsForm() {
       </div>
 
       <button
-        onClick={handleSave}
+        onClick={handleNext}
         className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg font-medium transition shadow-sm"
       >
         Save Skills
