@@ -1,6 +1,8 @@
 import { ApiResponse } from "../utils/resPattern.js";
 import resumeModel from "../models/resume.js";
 import { response } from "express";
+import { genrateHash,verifyHash } from "../config/bcrypt.js";
+import userModel from "../models/user.js";
 
 export async function addResume(req, res, next) {
     try {
@@ -18,21 +20,6 @@ export async function addResume(req, res, next) {
         res.status(500).json(new ApiResponse(false, null, error.message || "internal server error"));
     }
 }
-// export async function updateUser(req,res,next){
-//     try{
-//         const{name,email,phone,gender,address}=req.body;
-//         if(!name || !email || !phone || !gender || !address){
-//             return res.status(400).json(new ApiResponse(false , null ,"all fiels are required !"))
-//         }
-//         let userstatus=await userModel.findByIdAndUpdate(req.user._id,(name,email,phone,gender,address),{returnDocument:"after"});
-//         if(!user) return res.status(404).json(new ApiResponse(false,null,"user not found"))
-
-//         res.status(200).json(new ApiResponse(true , null,"Update successfull"))
-//     }catch(error)
-//     {
-//         res.status(500).json(new ApiResponse(false , null,"internal server error"))
-//     }
-// }
 
 
 export async function updateResume(req, res,next) {
@@ -130,9 +117,11 @@ const data = await resumeModel.deleteOne({ _id: req.params.id });
 //     }
 // }
 
-export async function getAllUser(req,res,next) {
-    try{
-        const data=await resumeModel.findById(req.params.id);
+export async function getAllresume(req,res) 
+{
+    try
+    {
+        const data=await resumeModel.find();
 
      if(!data)
      {
@@ -140,10 +129,12 @@ export async function getAllUser(req,res,next) {
             new ApiResponse(false,null,"resume not found")
         )
      }
-     res.status(200).json(new ApiResponse(true,data,"resume fatched succesfull"));
+     return res.status(200).json(new ApiResponse(true,data,"resume fatched succesfull"));
     }
     catch(error)
     {
         res.status(500).json(new ApiResponse(false,null,error.message||"internal server error"));
     }
 }
+
+

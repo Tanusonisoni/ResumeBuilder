@@ -1,5 +1,9 @@
 import { Schema, model } from "mongoose";
 const ResumeSchema = new Schema({
+    userId : {
+      type : Schema.Types.ObjectId,
+      ref : "user"
+    },
     name: {
         type: String,
         trim: true,

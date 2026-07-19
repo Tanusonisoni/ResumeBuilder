@@ -8,6 +8,8 @@ const initialState = {
     location: "",
     linkedin: "",
     summary: "",
+    github:"",
+    Portfolio:""
   },
 
   education: {
@@ -37,6 +39,8 @@ const initialState = {
     databases: [],
     tools: [],
     softSkills: [],
+    Certification:[],
+    Achievements:[],
   },
 };
 

@@ -1,0 +1,42 @@
+import {verifyHash} from "../config/bcrypt.js";
+import { generateToken } from "../config/jwt.js";
+import userModel from "../models/user.js";
+import { ApiResponse } from "../utils/resPattern.js";
+
+export async function authCantroller(req,res,next) {
+    try{
+
+        const {email,password}=req.body;
+        if(!email || !password)
+        {
+          return res.status(400).json(new ApiResponse(false,null,"Email and password are required"));
+        }
+
+        let user=await userModel.findOne({email,isDeleted:false});
+
+        if(!user) return res.status(404).json(new ApiResponse(false,null,"user not found"));
+
+        user=user.toObject();
+
+        let match=await verifyHash(password,user.password);
+
+        if(!match) return res.status(401).json(new ApiResponse(false,null,"incorrect password"));
+
+        let accessToken=generateToken({
+            name:user.name,
+            id:user._id,
+            role:user.role,
+            email:user.email
+        })
+
+        delete user._v
+        delete user.password
+
+        user.accessToken=accessToken;
+
+        res.status(200).json(new ApiResponse(true,user,"Success"))
+    }
+    catch (error) {
+        res.status(500).json(new ApiResponse(false, null, error.message || "Internal server Error"))
+    }
+}
