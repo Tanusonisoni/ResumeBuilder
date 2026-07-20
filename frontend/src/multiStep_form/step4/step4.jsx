@@ -1,21 +1,13 @@
-import {
-  FaArrowLeft,
-  FaArrowRight,
-  FaSave,
-  FaPlus,
-} from "react-icons/fa";
-
-// import { setProjects } from "../../redux/slices/resumeSlice";
+import { FaPlus } from "react-icons/fa";
 import { useState } from "react";
 import { addProject } from "../../redux/slices/resumeSlice";
 import { useDispatch, useSelector } from "react-redux";
 
 function Step4() {
-
   const dispatch = useDispatch();
 
+  const projects = useSelector((state) => state.resume.projects);
 
-  const projects = useSelector(state => state.resume.projects);
   const [project, setProject] = useState({
     projectName: "",
     description: "",
@@ -32,8 +24,6 @@ function Step4() {
 
     dispatch(addProject(project));
 
-    // setProjects([...projects, project]);
-
     setProject({
       projectName: "",
       description: "",
@@ -41,114 +31,196 @@ function Step4() {
       github: "",
       live: "",
     });
-    console.log(project)
   };
 
   const handleChange = (field, value) => {
     setProject({
-      ...project, [field]: value,
+      ...project,
+      [field]: value,
     });
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 p-6 flex flex-col items-center">
+    <div className="w-full flex items-center justify-center p-3">
+      <div className="w-full max-w-4xl bg-white rounded-2xl shadow-lg border border-gray-200">
 
-      {/* Project Form */}
-      <div className="bg-white rounded-xl shadow-md p-6 border w-full max-w-3xl">
+        {/* Header */}
+        <div className="px-5 py-3 border-b">
+          <h2 className="text-2xl font-bold text-gray-800">
+            Projects
+          </h2>
 
-        <h2 className="text-2xl font-bold mb-5">
-          Add Project
-        </h2>
+          <p className="text-sm text-gray-500 mt-1">
+            Add your projects and showcase your work.
+          </p>
+        </div>
 
-        <input
-          type="text"
-          placeholder="Project Name"
-          value={project.projectName}
-          onChange={(e) => handleChange("projectName", e.target.value)}
-          className="w-full border p-2 rounded mb-4"
-        />
+        {/* Form */}
+        <div className="p-5">
 
-        <textarea
-          placeholder="Project Description"
-          value={project.description}
-          onChange={(e) => handleChange("description", e.target.value)}
-          className="w-full border p-2 rounded mb-4"
-        />
+          <div className="space-y-3">
 
-        <input
-          type="text"
-          placeholder="React, Node.js, MongoDB"
-          value={project.technologies}
-          onChange={(e) => handleChange("technologies", e.target.value)}
-          className="w-full border p-2 rounded mb-4"
-        />
+            {/* Project Name */}
+            <div>
+              <label className="block mb-1 text-xs font-semibold text-gray-700">
+                Project Name
+              </label>
 
-        <div className="grid grid-cols-2 gap-4">
+              <input
+                type="text"
+                value={project.projectName}
+                onChange={(e) => handleChange("projectName", e.target.value)}
+                placeholder="Resume Builder"
+                className="w-full h-9 rounded-md border border-gray-300 px-3 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              />
+            </div>
 
-          <input
-            type="url"
-            placeholder="GitHub Link"
-            value={project.github}
-            onChange={(e) => handleChange("github", e.target.value)}
-            className="border p-2 rounded"
-          />
+            {/* Description */}
+            <div>
+              <label className="block mb-1 text-xs font-semibold text-gray-700">
+                Project Description
+              </label>
 
-          <input
-            type="url"
-            placeholder="Live Demo"
-            value={project.live}
-            onChange={(e) => handleChange("live", e.target.value)}
-            className="border p-2 rounded"
-          />
+              <textarea
+                rows={3}
+                value={project.description}
+                onChange={(e) => handleChange("description", e.target.value)}
+                placeholder="Describe your project..."
+                className="w-full min-h-[90px] rounded-md border border-gray-300 p-3 text-sm resize-none focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              />
+            </div>
+
+            {/* Technologies */}
+            <div>
+              <label className="block mb-1 text-xs font-semibold text-gray-700">
+                Technologies Used
+              </label>
+
+              <input
+                type="text"
+                value={project.technologies}
+                onChange={(e) => handleChange("technologies", e.target.value)}
+                placeholder="React, Redux, Tailwind CSS"
+                className="w-full h-9 rounded-md border border-gray-300 px-3 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              />
+            </div>
+
+            {/* Links */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+
+              <div>
+                <label className="block mb-1 text-xs font-semibold text-gray-700">
+                  GitHub Link
+                </label>
+
+                <input
+                  type="url"
+                  value={project.github}
+                  onChange={(e) => handleChange("github", e.target.value)}
+                  placeholder="https://github.com/username/project"
+                  className="w-full h-9 rounded-md border border-gray-300 px-3 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                />
+              </div>
+
+              <div>
+                <label className="block mb-1 text-xs font-semibold text-gray-700">
+                  Live Demo
+                </label>
+
+                <input
+                  type="url"
+                  value={project.live}
+                  onChange={(e) => handleChange("live", e.target.value)}
+                  placeholder="https://yourproject.com"
+                  className="w-full h-9 rounded-md border border-gray-300 px-3 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                />
+              </div>
+
+            </div>
+
+            {/* Button */}
+            <div className="flex justify-end">
+              <button
+                type="button"
+                onClick={handleAddProject}
+                className="flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white px-5 py-2 rounded-md text-sm font-medium transition"
+              >
+                <FaPlus />
+                Add Project
+              </button>
+            </div>
+
+          </div>
+
+          {/* Saved Projects */}
+          <div className="mt-6 border-t pt-4">
+
+            <h3 className="text-lg font-semibold text-gray-800 mb-3">
+              Saved Projects
+            </h3>
+
+            {projects.length === 0 ? (
+              <p className="text-sm text-gray-500">
+                No projects added yet.
+              </p>
+            ) : (
+              <div className="space-y-3">
+
+                {projects.map((item, index) => (
+                  <div
+                    key={index}
+                    className="bg-white border border-gray-200 rounded-xl shadow-sm p-4"
+                  >
+                    <h4 className="text-base font-semibold text-gray-800">
+                      {item.projectName}
+                    </h4>
+
+                    <p className="text-sm text-indigo-600 mt-1">
+                      {item.technologies}
+                    </p>
+
+                    <p className="text-sm text-gray-600 mt-2">
+                      {item.description}
+                    </p>
+
+                    <div className="flex gap-5 mt-3">
+
+                      {item.github && (
+                        <a
+                          href={item.github}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="text-sm text-indigo-600 hover:underline"
+                        >
+                          GitHub
+                        </a>
+                      )}
+
+                      {item.live && (
+                        <a
+                          href={item.live}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="text-sm text-green-600 hover:underline"
+                        >
+                          Live Demo
+                        </a>
+                      )}
+
+                    </div>
+                  </div>
+                ))}
+
+              </div>
+            )}
+
+          </div>
 
         </div>
 
-        <button
-          type="button"
-          onClick={handleAddProject}
-          className="mt-5 bg-indigo-600 text-white px-5 py-2 rounded flex items-center gap-2"
-        >
-          <FaPlus />
-          Save Project
-        </button>
-
       </div>
-
-      {/* Saved Projects */}
-      <div className="w-full max-w-3xl mt-8">
-
-        <h2 className="text-xl font-bold mb-4">
-          Saved Projects
-        </h2>
-
-        {projects.length === 0 ? (
-          <p className="text-gray-500">
-            No projects added yet.
-          </p>
-        ) : (
-          projects.map((item, index) => (
-            <div
-              key={index}
-              className="bg-white rounded-lg shadow p-4 mb-3 flex justify-between items-center"
-            >
-              <div>
-                <h3 className="font-semibold">
-                  {item.projectName}
-                </h3>
-
-                <p className="text-gray-500">
-                  {item.technologies}
-                </p>
-              </div>
-            </div>
-          ))
-        )}
-
-      </div>
-
     </div>
   );
-
 }
 
 export default Step4;

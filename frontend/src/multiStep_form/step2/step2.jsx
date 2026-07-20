@@ -14,30 +14,30 @@ function Step2() {
   const education = useSelector((state) => state.resume.education);
 
   return (
-    <div className="min-h-screen bg-gray-100 flex items-center justify-center p-6">
-      <div className="w-full max-w-3xl bg-white rounded-2xl shadow-xl">
+    <div className="w-full flex items-center justify-center px-3 py-3 sm:px-4 sm:py-4">
+      <div className="w-full max-w-4xl bg-white rounded-2xl shadow-lg border border-gray-200 overflow-hidden">
 
         {/* Header */}
-        <div className="px-8 py-6 border-b">
-          <h2 className="text-2xl font-bold text-gray-800">
+        <div className="px-4 py-4 border-b sm:px-6 sm:py-5">
+          <h2 className="text-xl font-bold text-gray-800 sm:text-2xl">
             Education
           </h2>
 
-          <p className="text-sm text-gray-500 mt-1">
+          <p className="text-xs text-gray-500 mt-1 sm:text-sm">
             Add your academic qualifications.
           </p>
         </div>
 
         {/* Form */}
-        <div className="p-8">
+        <div className="px-4 py-4 sm:px-6 sm:py-5">
 
-          <div className="space-y-5">
+          <div className="space-y-3 sm:space-y-4">
 
             {/* Institution */}
             <div>
               <label
                 htmlFor="institution"
-                className="block mb-2 text-sm font-semibold text-gray-700"
+                className="block mb-1.5 text-xs font-semibold text-gray-700 sm:text-sm"
               >
                 Institution Name
               </label>
@@ -57,7 +57,7 @@ function Step2() {
                   )
                 }
                 placeholder="Shri Vaishnav Vidyapeeth Vishwavidyalaya"
-                className="w-full h-11 border rounded-md border-gray-300 px-3 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                className="w-full h-10 rounded-md border border-gray-300 px-3 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 sm:h-11"
               />
             </div>
 
@@ -65,7 +65,7 @@ function Step2() {
             <div>
               <label
                 htmlFor="degree"
-                className="block mb-2 text-sm font-semibold text-gray-700"
+                className="block mb-1.5 text-xs font-semibold text-gray-700 sm:text-sm"
               >
                 Degree
               </label>
@@ -85,17 +85,17 @@ function Step2() {
                   )
                 }
                 placeholder="B.Tech Computer Science"
-                className="w-full h-11 border rounded-md border-gray-300 px-3 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                className="w-full h-10 rounded-md border border-gray-300 px-3 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 sm:h-11"
               />
             </div>
 
             {/* Score & Passing Year */}
-            <div className="grid md:grid-cols-2 gap-5">
+            <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-4">
 
               <div>
                 <label
                   htmlFor="score"
-                  className="block mb-2 text-sm font-semibold text-gray-700"
+                  className="block mb-1.5 text-xs font-semibold text-gray-700 sm:text-sm"
                 >
                   CGPA / Percentage
                 </label>
@@ -116,14 +116,14 @@ function Step2() {
                     )
                   }
                   placeholder="8.50 CGPA or 85%"
-                  className="w-full h-11 border rounded-md border-gray-300 px-3 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                  className="w-full h-10 rounded-md border border-gray-300 px-3 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 sm:h-11"
                 />
               </div>
 
               <div>
                 <label
                   htmlFor="passingYear"
-                  className="block mb-2 text-sm font-semibold text-gray-700"
+                  className="block mb-1.5 text-xs font-semibold text-gray-700 sm:text-sm"
                 >
                   Passing Year
                 </label>
@@ -144,7 +144,7 @@ function Step2() {
                   id="passingYear"
                   type="number"
                   placeholder="2026"
-                  className="w-full h-11 border rounded-md border-gray-300 px-3 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                  className="w-full h-10 rounded-md border border-gray-300 px-3 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 sm:h-11"
                 />
               </div>
 

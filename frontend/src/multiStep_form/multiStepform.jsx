@@ -6,6 +6,8 @@ import Step5 from "./step5/step5";
 
 import { useState } from "react";
 import { useSelector } from "react-redux";
+import { saveResume } from "../Api/resumeApi";
+import Navbar from "../components/Navbar";
 
 const pages = {
     Step1: 1,
@@ -19,7 +21,7 @@ const Final_Step = pages.Step5;
 
 function MultiStep_form() {
 
-    const resume=useSelector((state)=>state.resume);
+    // const resume=useSelector((state)=>state.resume);
 
     const [currentstep, setCurrentStep] = useState(pages.Step1);
     const steps = {
@@ -40,7 +42,7 @@ function MultiStep_form() {
 
         e.preventDefault();
 
-        localStorage.setItem("resume",JSON.stringify(resume));
+        localStorage.setItem("resume", JSON.stringify(resume));
 
         if (currentstep < pages.Step5) {
             setCurrentStep(currentstep + 1);
@@ -56,9 +58,23 @@ function MultiStep_form() {
     }
 
 
+    //save resume for api
+    const resume = useSelector((state) => state.resume)
+
+    const handelSave = async () => {
+        try {
+            console.log(resume);
+            await saveResume(resume);
+            alert("resume saved Successfully");
+        } catch (error) {
+            alert(error);
+            console.log(error)
+        }
+    };
 
     return (
         <div>
+            {/* <Navbar/> */}
             <form>
                 {/* <div>
                 <Step1/>
@@ -82,8 +98,13 @@ function MultiStep_form() {
 
                     <button
                         type="button"
-                        onClick={handelNext}
-                        className="px-6 py-2 rounded-lg bg-blue-600 text-white hover:bg-blue-700 transition">
+                        onClick={
+                            currentstep === Final_Step
+                                ? handelSave
+                                : handelNext
+                        }
+                        className="px-6 py-2 rounded-lg bg-blue-600 text-white hover:bg-blue-700 transition"
+                    >
                         {SubmitButtonText}
                     </button>
                 </div>

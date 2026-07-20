@@ -6,7 +6,7 @@ config();
 export function generateToken(data)
 {
     try{
-        let token=jwt.sign(data,process.env.TOKEN_SECRET,{expiresIn:"id"});
+        let token=jwt.sign(data,process.env.TOKEN_SECRET,{expiresIn:"1d"});
         return token;
     }catch(error){
         console.log(error);

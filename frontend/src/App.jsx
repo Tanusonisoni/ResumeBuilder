@@ -12,21 +12,26 @@ import MultiStep_form from './multiStep_form/multiStepform';
 
 const App = () => {
   return (
-    // <Routes>
-    //   <Route path="/" element={<LoginPage />} />
-    //   <Route path="/login" element={<LoginPage />} />
-    //   <Route path="/signup" element={<RegisterPage />} />
-    //   <Route path="/builder/*" element={<BuilderPage />} />
-    //   <Route path="*" element={<LoginPage />} />
-    // </Routes>
+    <Routes>
+      <Route path="/" element={<LoginPage />} />
+      <Route path="/login" element={<LoginPage />} />
+      <Route path="/signup" element={<RegisterPage />} />
+      <Route path="/builder/*" element={<MultiStep_form />} />
+     <Route path="*" element={<LoginPage />} />
+    
+      
+    </Routes>
     // <Step5/>
     // <Step4/>
     // <Step3/>
     // <Step2/>
     // <Step1/>
 
+    // <LoginPage
+    // 
 
-    <MultiStep_form/>
+
+    // <MultiStep_form/>
   );
 };
 

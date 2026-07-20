@@ -33,15 +33,15 @@ const initialState = {
   projects: [],
 
   skills: {
-    programming: [],
-    frontend: [],
-    backend: [],
-    databases: [],
-    tools: [],
-    softSkills: [],
-    Certification:[],
-    Achievements:[],
-  },
+  programming: [],
+  frontend: [],
+  backend: [],
+  databases: [],
+  tools: [],
+  softSkills: [],
+  certifications: [],
+  achievements: "",
+},
 };
 
 const resumeSlice = createSlice({

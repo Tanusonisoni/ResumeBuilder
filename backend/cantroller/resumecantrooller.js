@@ -4,68 +4,69 @@ import { response } from "express";
 import { genrateHash,verifyHash } from "../config/bcrypt.js";
 import userModel from "../models/user.js";
 
+
 export async function addResume(req, res, next) {
     try {
-        // const { name, email, phone, location, summary } = req.body;
+        const {name,email,location,phone,summary}=req.body;
 
-        let user = await resumeModel.create(req.body);
-
-        // if (!name || !email || !phone || !location || !summary) {
-        //     return res.status(400).json(new ApiResponse(false, null, "All fields are required"));
-        // }
-
-        res.status(201).json(new ApiResponse(true, user, "successfull"));
-
-    } catch (error) {
+        if(!name || !email || !phone || !location || !summary)
+        {
+            return res.status(400).json(new ApiResponse(false,null,"all field are required"));
+        }
+      const user=await resumeModel.create({...req.body,
+        userId:req.user._id
+      });
+        res.status(201).json(new ApiResponse(true,user,"successfull"));
+    }catch(error)
+    {
         res.status(500).json(new ApiResponse(false, null, error.message || "internal server error"));
     }
 }
 
+// export async function updateResume(req, res,next) {
+//     try {
+//      const { name, email, phone, location, address } = req.body;
+//         const resume = await resumeModel.findByIdAndUpdate(
+//             req.params.id,
+//             {
+//                 name,
+//                 email,
+//                 phone,
+//                 location,
+//                 address
+//             },
+//             {
+//                 new: true
+//             }
+//         );
+//         if (!resume) {
+//             return res.status(404).json(
+//                 new ApiResponse(false, null, "Resume not found")
+//          );
+//         }
+//         res.status(200).json(
+//             new ApiResponse(true, resume, "Resume updated successfully")
+//         );
+//     } catch (error) {
+//         res.status(500).json(
+//             new ApiResponse(false, null, "Internal server error")
+//         );
+//     }
+// }
 
-export async function updateResume(req, res,next) {
-    try {
-     const { name, email, phone, location, address } = req.body;
-        const resume = await resumeModel.findByIdAndUpdate(
-            req.params.id,
-            {
-                name,
-                email,
-                phone,
-                location,
-                address
-            },
-            {
-                new: true
-            }
-        );
-        if (!resume) {
-            return res.status(404).json(
-                new ApiResponse(false, null, "Resume not found")
-         );
-        }
-        res.status(200).json(
-            new ApiResponse(true, resume, "Resume updated successfully")
-        );
-    } catch (error) {
-        res.status(500).json(
-            new ApiResponse(false, null, "Internal server error")
-        );
-    }
-}
-
-export  async function deleteData(req,res,next) {
-    try{
-const data = await resumeModel.deleteOne({ _id: req.params.id });
-     if(!data)
-      return res.status(404).json(
-           new ApiResponse(false, null, "Resume not found")
-);     
-     res.status(200).json(new ApiResponse(true,data,"deleted succesfull"));
-    }catch(error)
-    {
-        res.status(500).json(new ApiResponse(false,error.message || "internal server error"));
-    }
-}
+// export  async function deleteData(req,res,next) {
+//     try{
+// const data = await resumeModel.deleteOne({ _id: req.params.id });
+//      if(!data)
+//       return res.status(404).json(
+//            new ApiResponse(false, null, "Resume not found")
+// );     
+//      res.status(200).json(new ApiResponse(true,data,"deleted succesfull"));
+//     }catch(error)
+//     {
+//         res.status(500).json(new ApiResponse(false,error.message || "internal server error"));
+//     }
+// }
 
 // export async function addEducation(req, res, next) {
 //     try {
@@ -117,24 +118,24 @@ const data = await resumeModel.deleteOne({ _id: req.params.id });
 //     }
 // }
 
-export async function getAllresume(req,res) 
-{
-    try
-    {
-        const data=await resumeModel.find();
+// export async function getAllresume(req,res) 
+// {
+//     try
+//     {
+//         const data=await resumeModel.find();
 
-     if(!data)
-     {
-        return res.status(404).json(
-            new ApiResponse(false,null,"resume not found")
-        )
-     }
-     return res.status(200).json(new ApiResponse(true,data,"resume fatched succesfull"));
-    }
-    catch(error)
-    {
-        res.status(500).json(new ApiResponse(false,null,error.message||"internal server error"));
-    }
-}
+//      if(!data)
+//      {
+//         return res.status(404).json(
+//             new ApiResponse(false,null,"resume not found")
+//         )
+//      }
+//      return res.status(200).json(new ApiResponse(true,data,"resume fatched succesfull"));
+//     }
+//     catch(error)
+//     {
+//         res.status(500).json(new ApiResponse(false,null,error.message||"internal server error"));
+//     }
+// }
 
 

@@ -1,4 +1,6 @@
+import axios from "axios";
 import React from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 function LoginPage() {
@@ -8,10 +10,34 @@ function LoginPage() {
     navigate("/signup");
   };
 
-  const handleLogin = (e) => {
+  const [form,setForm]=useState({
+    email:"",
+    password:""
+  });
+
+  async function handleLogin(e) {
+
     e.preventDefault();
-    navigate("/builder/personal");
-  };
+
+  try{
+      const response=await axios.post("http://localhost:5000/user/login",form);
+      if(response.data.status){
+        // response.data.data.accessToken
+
+        localStorage.setItem("token",response.data.data.accessToken);
+      }
+      setForm({
+        email:"",
+        password:""
+      })
+      alert("successful");
+      navigate("/builder")
+  } catch(error){
+    alert(error.response?.data?.message || "Login Failed");
+}
+
+
+  }   
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-100 via-white to-blue-200 px-4">
@@ -35,6 +61,8 @@ function LoginPage() {
 
             <input
               type="email"
+              value={form.email}
+              onChange={(e)=>setForm({...form,email:e.target.value})}
               placeholder="Enter your email"
               className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
@@ -47,6 +75,8 @@ function LoginPage() {
 
             <input
               type="password"
+              value={form.password}
+              onChange={(e)=>setForm({...form,password:e.target.value})}
               placeholder="Enter your password"
               className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
@@ -63,6 +93,7 @@ function LoginPage() {
 
           <button
             type="submit"
+            onClick={handleLogin}
             className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-lg transition"
           >
             Login
