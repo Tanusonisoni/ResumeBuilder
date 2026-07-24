@@ -10,14 +10,14 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+
+app.use("/user",userRoute)
 app.use("/api/resume", resumeRoute);
 
-app.use("/user",userRoute);
 
 // app.get("/",(req,res)=>{
 //     res.send("server is runninhg");
 // })
-
-// app.use("/resume",resumeRoute);
+//  app.use("/resume",resumeRoute);
 
 export default app;

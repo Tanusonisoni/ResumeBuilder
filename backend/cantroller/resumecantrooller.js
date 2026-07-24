@@ -1,24 +1,63 @@
 import { ApiResponse } from "../utils/resPattern.js";
 import resumeModel from "../models/resume.js";
 import { response } from "express";
-import { genrateHash,verifyHash } from "../config/bcrypt.js";
+import { genrateHash, verifyHash } from "../config/bcrypt.js";
 import userModel from "../models/user.js";
 
 
+
+//get data from frontend
+export async function createResume(req, res) {
+    try {
+
+        console.log("USER:", req.user);
+        console.log("DATA FROM FRONTEND:", req.body);
+
+        const userId = req.user._id;
+
+        const resumeData = {
+            ...req.body,
+            userId: userId,
+        };
+
+        console.log("FINAL RESUME DATA:", resumeData);
+
+        const resume = await resumeModel.create(resumeData);
+
+        res.status(201).json(
+            new ApiResponse(
+                true,
+                resume,
+                "Resume data saved successfully"
+            )
+        );
+
+    } catch (error) {
+
+        console.log("CREATE RESUME ERROR:", error);
+
+        res.status(500).json(
+            new ApiResponse(
+                false,
+                null,
+                error.message || "Internal server error"
+            )
+        );
+    }
+}
 export async function addResume(req, res, next) {
     try {
-        const {name,email,location,phone,summary}=req.body;
+        const { name, email, location, phone, summary } = req.body;
 
-        if(!name || !email || !phone || !location || !summary)
-        {
-            return res.status(400).json(new ApiResponse(false,null,"all field are required"));
+        if (!name || !email || !phone || !location || !summary) {
+            return res.status(400).json(new ApiResponse(false, null, "all field are required"));
         }
-      const user=await resumeModel.create({...req.body,
-        userId:req.user._id
-      });
-        res.status(201).json(new ApiResponse(true,user,"successfull"));
-    }catch(error)
-    {
+        const user = await resumeModel.create({
+            ...req.body,
+            userId: req.user._id
+        });
+        res.status(201).json(new ApiResponse(true, user, "successfull"));
+    } catch (error) {
         res.status(500).json(new ApiResponse(false, null, error.message || "internal server error"));
     }
 }
@@ -60,7 +99,7 @@ export async function addResume(req, res, next) {
 //      if(!data)
 //       return res.status(404).json(
 //            new ApiResponse(false, null, "Resume not found")
-// );     
+// );
 //      res.status(200).json(new ApiResponse(true,data,"deleted succesfull"));
 //     }catch(error)
 //     {
@@ -118,7 +157,7 @@ export async function addResume(req, res, next) {
 //     }
 // }
 
-// export async function getAllresume(req,res) 
+// export async function getAllresume(req,res)
 // {
 //     try
 //     {

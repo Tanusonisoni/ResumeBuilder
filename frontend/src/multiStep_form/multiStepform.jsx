@@ -8,7 +8,8 @@ import { useState } from "react";
 import { useSelector } from "react-redux";
 import { saveResume } from "../Api/resumeApi";
 import Navbar from "../components/Navbar";
-
+import { useNavigate } from "react-router";
+import ResumePreview from "../components/ResumePreview/ResumePreview";
 const pages = {
     Step1: 1,
     Step2: 2,
@@ -21,9 +22,20 @@ const Final_Step = pages.Step5;
 
 function MultiStep_form() {
 
+    const navigate = useNavigate();
+
     // const resume=useSelector((state)=>state.resume);
 
     const [currentstep, setCurrentStep] = useState(pages.Step1);
+
+    //save resume for api
+    const resume = useSelector((state) => state.resume);
+
+    console.log(
+        "COMPLETE FORM DATA:",
+        JSON.stringify(resume, null, 2)
+    );
+
     const steps = {
         [pages.Step1]: Step1,
         [pages.Step2]: Step2,
@@ -49,26 +61,27 @@ function MultiStep_form() {
         }
         else {
             console.log("submit data");
+                    navigate("/resumePreview")
+
         }
     }
     function handelCancel(e) {
         e.preventDefault();
-        setCurrentStep(currentstep - 1);
-        console.log("re")
+        if (currentstep > pages.Step1) {
+             setCurrentStep(currentstep - 1);
+             }
     }
-
-
-    //save resume for api
-    const resume = useSelector((state) => state.resume)
-
-    const handelSave = async () => {
+    const handelSave = async (e) => {
+        e.preventDefault();
         try {
-            console.log(resume);
-            await saveResume(resume);
+            const response = await saveResume(resume);
+            console.log(response);
+
             alert("resume saved Successfully");
+            navigate("/resumePreview");
+
         } catch (error) {
-            alert(error);
-            console.log(error)
+            alert(error.message);
         }
     };
 
@@ -84,6 +97,11 @@ function MultiStep_form() {
                 <Step5/>
             </div> */}
                 <Components />
+
+                {/* //json data sjow */}
+                {/* <pre className="text-green-400 text-sm overflow-auto whitespace-pre-wrap">
+                    {JSON.stringify(resume, null, 2)}
+                </pre> */}
 
                 <div className="flex justify-center items-center gap-4 mt-8">
                     {currentstep >= pages.Step2 && (
@@ -109,6 +127,7 @@ function MultiStep_form() {
                     </button>
                 </div>
             </form>
+
         </div>
     )
 }

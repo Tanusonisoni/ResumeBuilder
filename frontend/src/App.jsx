@@ -9,6 +9,7 @@ import Step3 from './multiStep_form/step3/Step3';
 import Step2 from './multiStep_form/step2/Step2';
 import Step1 from './multiStep_form/step1/Step1';
 import MultiStep_form from './multiStep_form/multiStepform';
+import ResumePreview from './components/ResumePreview/ResumePreview';
 
 const App = () => {
   return (
@@ -18,6 +19,7 @@ const App = () => {
       <Route path="/signup" element={<RegisterPage />} />
       <Route path="/builder/*" element={<MultiStep_form />} />
      <Route path="*" element={<LoginPage />} />
+     <Route path='/resumePreview' element={<ResumePreview/>}/>
     
       
     </Routes>

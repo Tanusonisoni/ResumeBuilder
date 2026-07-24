@@ -2,14 +2,16 @@ import express from "express";
 import {Router} from 'express';
 import { addResume} from "../cantroller/resumecantrooller.js";
 import authMiddleware from "../middleware/resumeMiddleware.js";
+import { createResume } from "../cantroller/resumecantrooller.js";
 
 const router=Router();
 
 //  router.post("/register",registerUser)
 
 
-router.post("/personal",authMiddleware,addResume)
+// router.post("/personal",authMiddleware,addResume)
 
+router.post("/add",authMiddleware,createResume)
 
 // router.get("/getresume",getAllresume);
 // router.post("/add",addResume);
